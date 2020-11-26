@@ -1,3 +1,4 @@
+import 'package:Expenses_App/widgets/chart.dart';
 import 'package:Expenses_App/widgets/new_transaction.dart';
 import 'package:Expenses_App/widgets/transaction_list.dart';
 import 'package:Expenses_App/widgets/user_transactions.dart';
@@ -60,6 +61,13 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  List<Transaction> get _recentTransactions {
+    return _userTransactions.where((trxn){
+      return trxn.date.isAfter(DateTime.now().subtract(Duration(days: 7)));
+      
+    }).toList();
+  }
+
   void _startAddNewTransaction(BuildContext ctx) {
     showModalBottomSheet(
         context: ctx,
@@ -88,14 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
           // mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
-              // width: double.infinity,
-              child: Card(
-                // color: Colors.blue,
-                child: Text('CHART !'),
-                elevation: 10,
-              ),
-            ),
+            Chart(_recentTransactions),
             TransactionList(_userTransactions),
           ],
         ),

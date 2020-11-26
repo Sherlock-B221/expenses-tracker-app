@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class NewTransaction extends StatefulWidget {
   final Function addTx;
 
@@ -19,18 +18,18 @@ class _NewTransactionState extends State<NewTransaction> {
     final enteredTitle = titleController.text;
     final enteredAmount = int.parse(amountController.text);
 
-    if (enteredAmount<=0||enteredTitle.isEmpty){
+    if (enteredAmount <= 0 || enteredTitle.isEmpty) {
       return;
     }
 
-    widget.addTx(titleController.text,int.parse(amountController.text));
+    widget.addTx(titleController.text, int.parse(amountController.text));
 
     Navigator.of(context).pop();
   }
 
   @override
   Widget build(BuildContext context) {
-    return  Card(
+    return Card(
       elevation: 10,
       child: Container(
         padding: EdgeInsets.all(10),
@@ -49,13 +48,33 @@ class _NewTransactionState extends State<NewTransaction> {
               decoration: InputDecoration(labelText: 'Amount'),
               controller: amountController,
               keyboardType: TextInputType.number,
-              onSubmitted: (_) => submitData() ,
+              onSubmitted: (_) => submitData(),
               // onChanged: (value)=> amountInput=value,
             ),
-            FlatButton(
+            Container(
+              height: 70,
+              child: Row(
+                children: [
+                  Text('No Date Chosen!'),
+                  FlatButton(
+                    onPressed: () {},
+                    child: Text(
+                      'Choose Date',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    textColor: Theme.of(context).primaryColor,
+                  )
+                ],
+              ),
+            ),
+            RaisedButton(
               onPressed: submitData,
-              textColor: Colors.purple ,
-              child: Text('Add Transaction'),
+              color: Theme.of(context).primaryColor,
+              textColor: Colors.white,
+              child: Text(
+                'Add Transaction',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
             )
           ],
         ),
