@@ -18,11 +18,15 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           fontFamily: 'Quicksand',
           appBarTheme: AppBarTheme(
-              textTheme: ThemeData.light().textTheme.copyWith(
+              textTheme: ThemeData
+                  .light()
+                  .textTheme
+                  .copyWith(
                   title: TextStyle(fontFamily: 'OpenSans',
-                      fontSize: 20,fontWeight: FontWeight.bold))),
+                      fontSize: 20, fontWeight: FontWeight.bold))),
           primarySwatch: Colors.purple,
-          accentColor: Colors.purpleAccent),
+          accentColor: Colors.purpleAccent,
+          errorColor: Colors.red),
       home: MyHomePage(),
       debugShowCheckedModeBanner: false,
     );
@@ -50,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // )
   ];
 
-  void _addNewTransaction(String txTitle, int txAmount,DateTime chosenDate) {
+  void _addNewTransaction(String txTitle, int txAmount, DateTime chosenDate) {
     final newTx = Transaction(
         title: txTitle,
         amount: txAmount,
@@ -62,9 +66,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   List<Transaction> get _recentTransactions {
-    return _userTransactions.where((trxn){
+    return _userTransactions.where((trxn) {
       return trxn.date.isAfter(DateTime.now().subtract(Duration(days: 7)));
-      
     }).toList();
   }
 
@@ -76,6 +79,12 @@ class _MyHomePageState extends State<MyHomePage> {
         });
   }
 
+  void _deleteTransaction(String id){
+    setState(() {
+      _userTransactions.removeWhere((element) => element.id == id );
+    });
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,7 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Chart(_recentTransactions),
-            TransactionList(_userTransactions),
+            TransactionList(_userTransactions,_deleteTransaction),
           ],
         ),
       ),
