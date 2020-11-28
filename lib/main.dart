@@ -18,12 +18,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           fontFamily: 'Quicksand',
           appBarTheme: AppBarTheme(
-              textTheme: ThemeData
-                  .light()
-                  .textTheme
-                  .copyWith(
-                  title: TextStyle(fontFamily: 'OpenSans',
-                      fontSize: 20, fontWeight: FontWeight.bold))),
+              textTheme: ThemeData.light().textTheme.copyWith(
+                  title: TextStyle(
+                      fontFamily: 'OpenSans',
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold))),
           primarySwatch: Colors.purple,
           accentColor: Colors.purpleAccent,
           errorColor: Colors.red),
@@ -79,34 +78,45 @@ class _MyHomePageState extends State<MyHomePage> {
         });
   }
 
-  void _deleteTransaction(String id){
+  void _deleteTransaction(String id) {
     setState(() {
-      _userTransactions.removeWhere((element) => element.id == id );
+      _userTransactions.removeWhere((element) => element.id == id);
     });
-
   }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Expenses Tracker',
-          // style: TextStyle(fontFamily: 'Open Sans'),
-        ),
-        centerTitle: true,
-        actions: <Widget>[
-          IconButton(
-              icon: Icon(Icons.add),
-              onPressed: () => _startAddNewTransaction(context))
-        ],
+    final appBar = AppBar(
+      title: Text(
+        'Expenses Tracker',
+        // style: TextStyle(fontFamily: 'Open Sans'),
       ),
+      centerTitle: true,
+      actions: <Widget>[
+        IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () => _startAddNewTransaction(context))
+      ],
+    );
+    return Scaffold(
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
           // mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Chart(_recentTransactions),
-            TransactionList(_userTransactions,_deleteTransaction),
+            Container(
+                height: (MediaQuery.of(context).size.height -
+                        appBar.preferredSize.height -
+                        MediaQuery.of(context).padding.top) *
+                    0.4,
+                child: Chart(_recentTransactions)),
+            Container(
+                height: (MediaQuery.of(context).size.height -
+                        appBar.preferredSize.height -
+                        MediaQuery.of(context).padding.top) *
+                    0.6,
+                child: TransactionList(_userTransactions, _deleteTransaction)),
           ],
         ),
       ),
