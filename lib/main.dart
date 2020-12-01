@@ -1,7 +1,7 @@
-import 'package:Expenses_App/widgets/chart.dart';
-import 'package:Expenses_App/widgets/new_transaction.dart';
-import 'package:Expenses_App/widgets/transaction_list.dart';
-import 'package:Expenses_App/widgets/user_transactions.dart';
+import './widgets/chart.dart';
+import './widgets/new_transaction.dart';
+import './widgets/transaction_list.dart';
+import './widgets/user_transactions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

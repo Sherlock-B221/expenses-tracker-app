@@ -1,12 +1,12 @@
-import 'package:Expenses_App/widgets/new_transaction.dart';
-import 'package:Expenses_App/widgets/transaction_list.dart';
+import '../widgets/new_transaction.dart';
+import '../widgets/transaction_list.dart';
 
 import '../models/transaction.dart';
 import 'package:flutter/material.dart';
 
 class UserTransactions extends StatefulWidget {
   @override
-  _UserTransactionsState createState() => _UserTransactionsState();
+  _UserTransactionsState createState() => _UserTransactionsState(); 
 }
 
 class _UserTransactionsState extends State<UserTransactions> {

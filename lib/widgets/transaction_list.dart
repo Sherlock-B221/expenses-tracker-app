@@ -12,117 +12,118 @@ class TransactionList extends StatelessWidget {
   Widget build(BuildContext context) {
     return transactions.isEmpty
         ? LayoutBuilder(builder: (ctx, constraints) {
-      return Column(
-        children: [
-          SizedBox(
-            height: 10,
-          ),
-          Text(
-            'No Transactions Added Yet!',
-            style: TextStyle(
-                fontFamily: 'OpenSans',
-                fontSize: 20,
-                fontWeight: FontWeight.bold),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Image.asset(
-            'assets/images/waiting.png',
-            height: constraints.maxHeight * 0.7,
-            fit: BoxFit.cover,
-          ),
-        ],
-      );
-    })
-        : ListView.builder(
-      itemBuilder: (ctx, index) {
-        return Card(
-          elevation: 5,
-          margin: EdgeInsets.symmetric(
-            vertical: 8,
-            horizontal: 10,
-          ),
-          child: ListTile(
-            leading: CircleAvatar(
-              radius: 30,
-              child: Padding(
-                padding: EdgeInsets.all(6),
-                child: FittedBox(
-                  child: Text(
-                      "₹ ${transactions[index].amount..toStringAsFixed(2)}"),
+            return Column(
+              children: [
+                SizedBox(
+                  height: 10,
                 ),
-              ),
-            ),
-            title: Text(
-              transactions[index].title,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-              ),
-            ),
-            subtitle: Text(
-              DateFormat.MMMMEEEEd().format(transactions[index].date),
-              style: TextStyle(color: Colors.grey),
-            ),
-            trailing: MediaQuery
-                .of(context)
-                .size
-                .width > 360 ? FlatButton.icon(onPressed: null, icon: null, label: null) IconButton(
-              icon: Icon(Icons.delete),
-              color: Theme
-                  .of(context)
-                  .errorColor,
-              onPressed: () => deleteTx(transactions[index].id),
-            ),
-          ),
-        );
-        // return Card(
-        //   child: Row(
-        //     children: [
-        //       Container(
-        //         margin: EdgeInsets.symmetric(
-        //           vertical: 10,
-        //           horizontal: 15,
-        //         ),
-        //         decoration: BoxDecoration(
-        //           border: Border.all(
-        //               color: Theme
-        //                   .of(context)
-        //                   .primaryColorDark, width: 2),
-        //         ),
-        //         child: Text(
-        //           '₹ ${transactions[index].amount..toStringAsFixed(2)}',
-        //           style: TextStyle(
-        //               fontWeight: FontWeight.bold,
-        //               fontSize: 20,
-        //               color: Theme
-        //                   .of(context)
-        //                   .primaryColorDark),
-        //         ),
-        //         padding: EdgeInsets.all(10),
-        //       ),
-        //       Column(
-        //         crossAxisAlignment: CrossAxisAlignment.start,
-        //         children: <Widget>[
-        //           Text(
-        //             transactions[index].title,
-        //             style: TextStyle(
-        //               fontWeight: FontWeight.bold,
-        //               fontSize: 20,
-        //             ),
-        //           ),
-        //           Text(
-        //             DateFormat.MMMMEEEEd().format(transactions[index].date),
-        //             style: TextStyle(color: Colors.grey),
-        //           ),
-        //         ],
-        //       )
-        //     ],
-        //   ),
-        // );
-      },
-      itemCount: transactions.length,
-    );
+                Text(
+                  'No Transactions Added Yet!',
+                  style: TextStyle(
+                      fontFamily: 'OpenSans',
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Image.asset(
+                  'assets/images/waiting.png',
+                  height: constraints.maxHeight * 0.7,
+                  fit: BoxFit.cover,
+                ),
+              ],
+            );
+          })
+        : ListView.builder(
+            itemBuilder: (ctx, index) {
+              return Card(
+                elevation: 5,
+                margin: EdgeInsets.symmetric(
+                  vertical: 8,
+                  horizontal: 10,
+                ),
+                child: ListTile(
+                  leading: CircleAvatar(
+                    radius: 30,
+                    child: Padding(
+                      padding: EdgeInsets.all(6),
+                      child: FittedBox(
+                        child: Text(
+                            "₹ ${transactions[index].amount..toStringAsFixed(2)}"),
+                      ),
+                    ),
+                  ),
+                  title: Text(
+                    transactions[index].title,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
+                  subtitle: Text(
+                    DateFormat.MMMMEEEEd().format(transactions[index].date),
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                  trailing: MediaQuery.of(context).size.width > 400
+                      ? FlatButton.icon(
+                          onPressed: () => deleteTx(transactions[index].id),
+                          textColor: Colors.red,
+                          icon: Icon(Icons.delete),
+                          label: Text('Delete'))
+                      : IconButton(
+                          icon: Icon(Icons.delete),
+                          color: Theme.of(context).errorColor,
+                          onPressed: () => deleteTx(transactions[index].id),
+                        ),
+                ),
+              );
+              // return Card(
+              //   child: Row(
+              //     children: [
+              //       Container(
+              //         margin: EdgeInsets.symmetric(
+              //           vertical: 10,
+              //           horizontal: 15,
+              //         ),
+              //         decoration: BoxDecoration(
+              //           border: Border.all(
+              //               color: Theme
+              //                   .of(context)
+              //                   .primaryColorDark, width: 2),
+              //         ),
+              //         child: Text(
+              //           '₹ ${transactions[index].amount..toStringAsFixed(2)}',
+              //           style: TextStyle(
+              //               fontWeight: FontWeight.bold,
+              //               fontSize: 20,
+              //               color: Theme
+              //                   .of(context)
+              //                   .primaryColorDark),
+              //         ),
+              //         padding: EdgeInsets.all(10),
+              //       ),
+              //       Column(
+              //         crossAxisAlignment: CrossAxisAlignment.start,
+              //         children: <Widget>[
+              //           Text(
+              //             transactions[index].title,
+              //             style: TextStyle(
+              //               fontWeight: FontWeight.bold,
+              //               fontSize: 20,
+              //             ),
+              //           ),
+              //           Text(
+              //             DateFormat.MMMMEEEEd().format(transactions[index].date),
+              //             style: TextStyle(color: Colors.grey),
+              //           ),
+              //         ],
+              //       )
+              //     ],
+              //   ),
+              // );
+            },
+            itemCount: transactions.length,
+          );
   }
 }
